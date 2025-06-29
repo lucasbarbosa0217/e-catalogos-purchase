@@ -23,6 +23,20 @@ const GlobalStyle = createGlobalStyle`
   color: var(--text-color);
 }
 
+
+html, body, #root {
+  height: 100dvh;
+  font-family: sans-serif;
+}
+
+#root {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
 `;
 
 

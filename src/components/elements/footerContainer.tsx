@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const FooterWrapper = styled.footer`
+const FooterContainer = styled.footer`
     background-color: var(--primary-color);
     display: flex;
     justify-content: center;
@@ -9,4 +9,4 @@ const FooterWrapper = styled.footer`
     width: 100%;
 `;
 
-export default FooterWrapper;
+export default FooterContainer;

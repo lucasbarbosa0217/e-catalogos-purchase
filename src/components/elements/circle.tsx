@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 
 const Circle = styled.div`
-    background: #fff;
-    color: #809caa;
+    background: var(--background-color);
+    color: var(--primary-color);
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -13,5 +13,12 @@ const Circle = styled.div`
     font-weight: bold;
 `;
 
+
+export const CirclePrimary = styled(Circle)`
+    background: var(--primary-color);
+    color: var(--background-color);
+   
+
+`;
 
 export default Circle;

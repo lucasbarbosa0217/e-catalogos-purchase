@@ -25,7 +25,7 @@ function App() {
       <BottomPart>
         <ImageAndFunctions produto={selectedProduct} />
         <Information product={selectedProduct} />
-        <FooterQuantity produto={selectedProduct} />
+        <FooterQuantity />
         <Footer produto={selectedProduct} />
       </BottomPart>
     </>

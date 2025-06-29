@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type Product from "../models/Product";
 import type { ReactNode } from "react";
-import productData from "../data/products.json"; 
+import productData from "../data/products.json";
 import type ApiResponse from "../models/ApiRespose";
 
 interface ProductContextType {
@@ -14,19 +14,35 @@ interface ProductContextType {
     resetImageIndex: (productId: number) => void;
     changingCategoryManually?: boolean;
     setChangingCategoryManually?: (changing: boolean) => void;
+
+    quantities: { [productId: number]: number };
+    increaseQuantity: (productId: number) => void;
+    decreaseQuantity: (productId: number) => void;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
+const LOCAL_STORAGE_QUANTITIES_KEY = "product_quantities";
+
 export const ProductProvider = ({ children }: { children: ReactNode }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-    const selectProduct = (product: Product) => {
-        setSelectedProduct(product);
-    };
-
+    const [imageIndexMap, setImageIndexMap] = useState<{ [productId: number]: number }>({});
     const [changingCategoryManually, setChangingCategoryManually] = useState(false);
+
+    const [quantities, setQuantities] = useState<{ [productId: number]: number }>(() => {
+        if (typeof window !== "undefined") {
+            const stored = localStorage.getItem(LOCAL_STORAGE_QUANTITIES_KEY);
+            if (stored) {
+                try {
+                    return JSON.parse(stored);
+                } catch {
+                    return {};
+                }
+            }
+        }
+        return {};
+    });
 
     useEffect(() => {
         const data: ApiResponse = productData as ApiResponse;
@@ -34,9 +50,21 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         if (data.products.length > 0) {
             setSelectedProduct(data.products[0]);
         }
+
+        if (Object.keys(quantities).length === 0) {
+            const initialQuantities: { [productId: number]: number } = {};
+            data.products.forEach((product) => {
+                initialQuantities[product.id] = 0;
+            });
+            setQuantities(initialQuantities);
+        }
     }, []);
 
-    const [imageIndexMap, setImageIndexMap] = useState<{ [productId: number]: number }>({});
+
+
+    const selectProduct = (product: Product) => {
+        setSelectedProduct(product);
+    };
 
     const setImageIndexForProduct = (productId: number, index: number) => {
         setImageIndexMap((prev) => ({
@@ -52,6 +80,19 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
         }));
     };
 
+    const increaseQuantity = (productId: number) => {
+        setQuantities((prev) => ({
+            ...prev,
+            [productId]: (prev[productId] || 0) + 1,
+        }));
+    };
+
+    const decreaseQuantity = (productId: number) => {
+        setQuantities((prev) => ({
+            ...prev,
+            [productId]: Math.max((prev[productId] || 0) - 1, 0),
+        }));
+    };
 
     return (
         <ProductContext.Provider
@@ -64,9 +105,11 @@ export const ProductProvider = ({ children }: { children: ReactNode }) => {
                 setImageIndexForProduct,
                 resetImageIndex,
                 changingCategoryManually,
-                setChangingCategoryManually
+                setChangingCategoryManually,
+                quantities,
+                increaseQuantity,
+                decreaseQuantity,
             }}
-        
         >
             {children}
         </ProductContext.Provider>

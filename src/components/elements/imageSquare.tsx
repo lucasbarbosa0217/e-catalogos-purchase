@@ -7,6 +7,7 @@ const ImageSquare = styled.img`
     border: 3px solid var(--primary-color);
     border-radius: 0.5rem;
     display: block;
+    cursor: pointer;
 `;
 
 export default ImageSquare;

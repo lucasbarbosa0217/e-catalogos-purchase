@@ -5,6 +5,7 @@ import App from './App.tsx'
 import './theme.css'
 
 import { createGlobalStyle } from 'styled-components';
+import { ProductProvider } from './contexts/ProductContext.tsx'
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -42,7 +43,10 @@ html, body, #root {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <GlobalStyle />
-    <App />
+    <ProductProvider>
+      <GlobalStyle />
+      <App />
+    </ProductProvider>
+   
   </StrictMode>,
 )

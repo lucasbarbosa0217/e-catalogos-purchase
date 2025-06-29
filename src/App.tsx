@@ -1,5 +1,4 @@
-import Swiper from 'swiper';
-import './App.css'
+import './App.css';
 import BottomPart from './components/bottomPart';
 import Footer from './components/footer';
 import FooterQuantity from './components/footerQuantity';
@@ -7,30 +6,29 @@ import Header from './components/header';
 import ImageAndFunctions from './components/imageAndFunctions';
 import Information from './components/information';
 import MainContent from './components/main';
-import productData from './data/products.json'
-import type ApiResponse from './models/ApiRespose'
-import type Product from './models/Product';
+import ProductSwiper from './components/ProductSwiper';
+import { useProductContext } from './contexts/ProductContext';
 
 function App() {
-  const data: ApiResponse = productData as ApiResponse;
-  const products: Product[] = data.products;
+  const { products, selectedProduct } = useProductContext();
+
+  if (products.length === 0 || !selectedProduct) return <div>Carregando produtos...</div>;
 
   return (
+    <>
+      <Header />
 
-      <>
-        <Header />
+      <MainContent>
+        <ProductSwiper products={products} />
+      </MainContent>
 
-        <MainContent>
-        </MainContent>
-      
-        <BottomPart>
-        <ImageAndFunctions produto={products[6]} />
-        <Information product={products[6]} />
-        <FooterQuantity produto={products[6]} />
-        <Footer produto={products[6]} />
-        </BottomPart>
-       
-      </>
+      <BottomPart>
+        <ImageAndFunctions produto={selectedProduct} />
+        <Information product={selectedProduct} />
+        <FooterQuantity produto={selectedProduct} />
+        <Footer produto={selectedProduct} />
+      </BottomPart>
+    </>
   );
 }
 

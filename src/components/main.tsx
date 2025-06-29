@@ -7,6 +7,10 @@ const MainContent = styled.main`
     min-height: 0;
     overflow-y: auto;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 `;
 
 export default MainContent;

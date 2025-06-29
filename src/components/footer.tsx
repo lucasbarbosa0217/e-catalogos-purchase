@@ -3,7 +3,6 @@ import type Product from '../models/Product';
 import type Sku from '../models/Sku';
 import SizeCircle from './elements/sizeCircle';
 import SizeQuantity from './elements/sizeQuantity';
-import styled from 'styled-components';
 import { FaEquals } from 'react-icons/fa';
 import Icon from './elements/icon';
 import Wrapper from './elements/wrapper';
@@ -20,7 +19,7 @@ const Footer: React.FC<FooterProps> = ({ produto }) => {
             <Wrapper >
 
             {Array.isArray(produto.skus) ? (
-                produto.skus.map((skuItem: Sku, idx: number) => (
+                produto.skus.map((skuItem: Sku) => (
                      
                     <SizeQuantity key={skuItem.id}>{skuItem.minQuantity}
 

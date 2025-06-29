@@ -1,4 +1,5 @@
 import './App.css'
+import Footer from './components/footer';
 import Header from './components/header';
 import productData from './data/products.json'
 import type ApiResponse from './models/ApiRespose'
@@ -19,6 +20,7 @@ function App() {
             <p>Type: {product.type}</p>
           </div>
         ))}
+        <Footer/>
       </>
   
   );

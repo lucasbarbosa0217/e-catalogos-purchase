@@ -82,7 +82,7 @@ export const InfoModal: React.FC<ModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <Overlay onClick={onClose} aria-label="Fechar modal">
+    <Overlay >
       <ModalWrapper onClick={() => {}}>
         <Header>
           Informações

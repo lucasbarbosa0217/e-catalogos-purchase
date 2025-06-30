@@ -1,26 +1,34 @@
-import './App.css'
+import './App.css';
+import BottomPart from './components/bottomPart';
+import Footer from './components/footer';
+import FooterQuantity from './components/footerQuantity';
 import Header from './components/header';
-import productData from './data/products.json'
-import type ApiResponse from './models/ApiRespose'
-import type Product from './models/Product';
+import ImageAndFunctions from './components/imageAndFunctions';
+import Information from './components/information';
+import MainContent from './components/main';
+import ProductSwiper from './components/ProductSwiper';
+import { useProductContext } from './contexts/ProductContext';
 
 function App() {
-  const data: ApiResponse = productData as ApiResponse;
-  const products: Product[] = data.products;
+  const { products, selectedProduct } = useProductContext();
+
+  if (products.length === 0 || !selectedProduct) return <div>Carregando produtos...</div>;
 
   return (
+    <>
+      <Header />
 
-      <>
-        <Header />
-        {products.map((product) => (
-          <div key={product.id} className="product">
-            <h2>{product.name}</h2>
-            <p>Reference: {product.reference}</p>
-            <p>Type: {product.type}</p>
-          </div>
-        ))}
-      </>
-  
+      <MainContent>
+        <ProductSwiper products={products} />
+      </MainContent>
+
+      <BottomPart>
+        <ImageAndFunctions produto={selectedProduct} />
+        <Information product={selectedProduct} />
+        <FooterQuantity />
+        <Footer produto={selectedProduct} />
+      </BottomPart>
+    </>
   );
 }
 

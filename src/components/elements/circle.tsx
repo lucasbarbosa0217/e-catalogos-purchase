@@ -2,17 +2,23 @@ import styled from "styled-components";
 
 
 const Circle = styled.div`
-    background: #fff;
-    color: #809caa;
-    width: 36px;
-    height: 36px;
+    background: var(--background-color);
+    color: var(--primary-color);
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.2rem;
 `;
 
+
+export const CirclePrimary = styled(Circle)`
+    background: var(--primary-color);
+    color: var(--background-color);
+   
+
+`;
 
 export default Circle;

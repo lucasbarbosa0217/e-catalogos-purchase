@@ -1,6 +1,7 @@
 # e-catalogos-purchase
 
-Teste técnico para a empresa E-Catálogos
+Teste técnico para a empresa E-Catálogos.
+
 Este é um projeto frontend criado com **Vite** e **React**, que utiliza **Styled Components** para estilização dos componentes.
 
 ## Tecnologias
